@@ -1,0 +1,173 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(8, 135, 194);
+  overflow: hidden;
+}
+
+html {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(80, 77, 77);
+ }
+
+header {
+  width: 290px;
+  height: 150px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 700px;
+}
+
+#container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  background: black;
+  margin-top: 20px;
+  border: solid 10px rgb(8, 135, 194);
+}
+.playerCtl {
+  background: black;
+}
+
+.headline{
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+#scrub {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  align-items: center;
+}
+
+#duration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb( 40, 40, 40);
+  width: 20%;
+  border-radius: 15px;
+  margin-right: 10px;
+  margin-left: 2.5;
+}
+
+#progressBar {
+  background: rgb( 40, 40, 40);
+  border-radius: 15px 15px 15px 15px;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 100%;
+  height: 10px;
+}
+
+#progress {
+  height: 10px;
+  background: green;
+}
+
+.headline p {
+  width: 80px;
+  text-align: center;
+}
+
+marquee {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  height: 100%;
+  border: blue solid 1px;
+  background: rgb(28, 28, 28);
+}
+
+#volume {
+  width: 270px;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  height: 25px;
+  margin: 9px 5px 0px 5px;
+}
+
+#prevBtn {
+  border-radius: 10px 0px 0px 10px;
+  margin-right: 2.5px;
+}
+
+#nextBtn {
+  border-radius: 0px 10px 10px 0px;
+  margin-left: 2.5px;
+}
+
+button {
+  font-weight: 700;
+  width: 25%;
+  border: 3px solid rgb(8, 135, 194);
+  background: rgb(60, 60, 60);
+  color: black;
+  cursor: pointer;
+  margin: 0px 2.5px 0px 2.5px;
+}
+
+button:focus{
+  outline: 0;
+}
+
+img{
+  height: 12px;
+  width: 12px;
+}
+
+#playlist {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  border-color: black;
+  border-style:  solid;
+  border-width: 5px 10px 5px 10px;
+  width: 270px;
+  height: 480px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 10px 0px 0px 0px;
+  background: rgb( 40, 40, 40);
+}
+
+
+li {
+  padding: 2.5px 0px 2.5px 0px;
+  cursor: pointer;
+  width: 100%;
+  text-indent: 10px; 
+}
+
+li.active {
+  background: rgb(8, 135, 194);
+  color: rgb( 40, 40, 40);
+  width: 100%;
+}
+
+li:hover {
+  background: rgb( 50, 50, 50);
+}
+
+#playlist li.active {
+  background: rgb(8, 135, 194);
+  color: rgb( 40, 40, 40);
+}
+
