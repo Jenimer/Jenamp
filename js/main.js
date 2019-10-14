@@ -1,14 +1,15 @@
-//scrub through duration
-//build spectrum analyzer
-//figure out a server solution, putting files in by hand is a pain and not very dynamic
-//one day draw some custom buttons so this doesn't look so flat
-//maybe put the files into an array then map through it
-//maybe build a shuffle function
 let audio;
 
 $('#pauseBtn').hide();
 $('#unmute').hide();
 $('#maximize').hide();
+$('.placeholder').css('display', 'none');
+$('#norepeat').hide();
+$('#unshuffle').hide();
+$('.echoPlay').hide();
+$('.echoStop').hide();
+$('.echoPause').hide();
+
 let list = $('#playlist li:first-child');
 
 initAudio = (element) => {
@@ -19,8 +20,8 @@ initAudio = (element) => {
   audio = new Audio('./media/' + song);
 
   if (!audio.currentTime) {
-    $('#duration').html('0.00');
-  }
+    $('#duration').html('0:00');
+  };
 
   $('#artist').text(artist);
   $('#title').text(title);
@@ -29,8 +30,8 @@ initAudio = (element) => {
   element.addClass('active');
 
   audio.volume = parseFloat(volume.value / 10);
-  if(audio.volume == 0){
-   unmuteBtnShow();
+  if (audio.volume == 0) {
+    unmuteBtnShow();
   }
   $(audio).on('ended', () => {
     nextItem();
@@ -42,18 +43,23 @@ initAudio(list);
 $('#playBtn').click(() => {
   audio.play();
   pauseBtnShow();
+  playEcho();
   $('#duration').fadeIn(400);
   showDuration();
 });
 
 $('#pauseBtn').click(() => {
   audio.pause();
+  pauseEcho();
   playBtnShow();
+  clearPlayEcho();
+  pauseEcho();
 });
 
 $('#stopBtn').click(() => {
   audio.pause();
   audio.currentTime = 0;
+  stopEcho();
   playBtnShow();
   $('#duration');
 });
@@ -72,13 +78,13 @@ $('#progressBar').click(() => {
 
 $('#minimize').click(() => {
   toggleMin();
+  $('header').css('height', '135px');
 })
 
 $('#maximize').click(() => {
   toggleMax();
-  
-})
 
+})
 
 toggleMax = () => {
   $('#minimize').show()
@@ -86,7 +92,7 @@ toggleMax = () => {
 
   let body = $('body')
   $('#playlist').css('display', '');
-  body.css('background', '#000000');
+  body.css('background', '#000');
   body.css('box-shadow', '');
   $('header').css('height', '');
   $('#volCtl').css('padding-bottom', '');
@@ -101,10 +107,8 @@ toggleMin = () => {
   body.css('background', '#504d4d');
   body.css('box-shadow', 'none');
   $('header').css('height', '180px');
-  // $('header').css('box-shadow', '15px 15px 25px 0px black');
   $('#volCtl').css('padding-bottom', '10px');
 }
-
 
 prevItem = () => {
   audio.pause();
@@ -115,6 +119,7 @@ prevItem = () => {
   }
 
   pauseBtnShow();
+  playEcho();
   muteBtnShow();
   initAudio(prev);
   audio.play();
@@ -128,7 +133,7 @@ nextItem = () => {
   if (next.length == 0) {
     next = $('#playlist li:first-child');
   }
-
+  playEcho();
   pauseBtnShow();
   muteBtnShow();
   initAudio(next);
@@ -140,9 +145,9 @@ volChange = () => {
   let vol = volume.value
   $('#volume').attr('value', 'vol')
   audio.volume = parseFloat(vol / 10);
-  if(!audio.volume == 0){
+  if (!audio.volume == 0) {
     muteBtnShow();
-  } else if (audio.volume == 0){
+  } else if (audio.volume == 0) {
     unmuteBtnShow();
   }
 };
@@ -154,7 +159,6 @@ $('#mute').click(() => {
 $('#unmute').click(() => {
   muteBtnShow();
   audio.volume = parseFloat(volume.value / 10);
-
 });
 
 muteVol = () => {
@@ -194,6 +198,7 @@ $('#playlist li').click(function () {
   audio.pause();
   initAudio($(this));
   pauseBtnShow();
+  playEcho();
   $('#duration').fadeIn(400);
   audio.play();
   showDuration();
@@ -206,7 +211,7 @@ showDuration = () => {
     if (s < 10) {
       s = '0' + s;
     }
-    $('#duration').html(m + '.' + s);
+    $('#duration').html(m + ':' + s);
     let value = 0;
     if (audio.currentTime > 0) {
       value = Math.floor((100 / audio.duration) * audio.currentTime);
@@ -224,6 +229,42 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
+$('#repeat').click(() => {
+  $('.placeholder').remove();
+  $('#repeat').hide();
+  $('#norepeat').show();
+})
 
+$('#shuffle').click(() => {
+  $('#unshuffle').show();
+  $('#shuffle').hide();
+})
 
+$('#unshuffle').click(() => {
+  $('#unshuffle').hide();
+  $('#shuffle').show();
+})
 
+$('#norepeat').click(() => {
+  $('#playlist').append("<li class='placeholder'></li>");
+  $('#repeat').show();
+  $('#norepeat').hide();
+})
+
+pauseEcho = () => {
+  $('.echoPlay').hide();
+  $('.echoStop').hide();
+  $('.echoPause').show();
+}
+
+playEcho = () => {
+  $('.echoPlay').show();
+  $('.echoPause').hide();
+  $('.echoStop').hide();
+}
+
+stopEcho = () => {
+  $('.echoPlay').hide();
+  $('.echoStop').show();
+  $('.echoPause').hide();
+}

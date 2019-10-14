@@ -12,18 +12,32 @@
     <header>
       <div class='headline'>
         <div id ='leftCont'>
+          <div class='echo'>
+            <div class='echoPlay'>
+            </div>
+            <div class='echoPause'>
+              <div id='pauseEchol'></div>
+              <div id='pauseEchor'></div>
+            </div>
+            <div class='echoStop'></div>  
+          </div>
           <span id='duration'></span>
-          <button id='minimize'>Min</button>
-          <button id='maximize'>Max</button>
         </div>
-        <marquee id='info'>
-          <span id='artist'></span>:
-          <span id='title'></span>
-        </marquee>
+        <div id='rightCont'>
+          <marquee id='info'>
+            <span id='artist'></span>:
+            <span id='title'></span>
+          </marquee>
+          <div id='volCtl'>
+            <input id='volume' type='range' step='0.5' min='0' max='10' value='10' onChange='volChange()'/>
+            <button id='mute'>mute</button>
+            <button id='unmute'>mute</button>  
+          </div>
+        </div>
       </div>
       <div id='scrub'>
         <div id='progressBar'>
-          <span id='progress'></span>
+        <span id='progress'></span>
         </div>
       </div>
       <div class='controls'>
@@ -41,15 +55,17 @@
           <div id='nextl'></div>
           <div id='nextr'></div>
         </button>
-      </div>
-      <div id='volCtl'>
-        <input id='volume' type='range' step='0.5' min='0' max='10' value='10' onChange='volChange()'/>
-        <button id='mute'>mute</button>
-        <button id='unmute'>mute</button>
+        <button class='shuffleOption' id='shuffle'>Shuffle</button>
+        <button class='shuffleOption' id='unshuffle'>Shuffle</button>
+        <button class='repeatSelection'id='repeat'>Repeat</button>
+        <button class='repeatSelection' id='norepeat'>Repeat</button>
+        <button id='minimize'>Min</button>
+        <button id='maximize'>Max</button>
       </div>
     </header>
     <ul id='playlist'>
-    <li></li> 
+      <li song='your file name in media folder' artist='the artist'>The title of the song</li>
+      <li class='placeholder'></li>
     </ul>
   </div>
   <script src='js/jquery.js'></script>
