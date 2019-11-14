@@ -76,17 +76,18 @@ body {
   width: 100%;
   height: 10px;
   cursor: pointer;
+  
 }
 
-#progress {
+#progress { 
   height: 10px;
   display: flex;
   background: #43d01c;
-  
 }
 
 #leftCont {
   display: flex;
+  flex-direction: column;
   width: 35%;
   height: 55px;
   margin: 0px 5px 0px 0px;
@@ -97,6 +98,15 @@ body {
   border-width: 0px 2px 2px 0px;
   border-color: #7d7f85;
   border-style: solid;
+}
+
+#top
+{
+  display: flex;
+}
+
+#bottom {
+  padding: 2px;
 }
 
 #echo {
@@ -114,8 +124,6 @@ body {
   width: 40px;
   margin-left: 25px;
 }
-
-
 
 #minimize{
   width: 30px;
@@ -287,7 +295,6 @@ input[type=range]:focus::-ms-fill-upper {
   border-bottom: 5px solid transparent; 
 }
 
-
 .echoStop {
   height: 10px;
   width: 10px;
@@ -412,6 +419,7 @@ input[type=range]:focus::-ms-fill-upper {
 #unshuffle{
   background: linear-gradient(black, #3071A9, black); 
 }
+
 
 button {
   font-weight: 700;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,65 +8,76 @@
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <title>Thrice</title>
 </head>
+
 <body>
   <div id='container'>
     <header>
       <div class='headline'>
-        <div id ='leftCont'>
-          <div class='echo'>
-            <div class='echoPlay'>
+        <div id='leftCont'>
+          <div id='top'>
+
+            <div class='echo'>
+              <div class='echoPlay'>
+              </div>
+              <div class='echoPause'>
+                <div id='pauseEchol'></div>
+                <div id='pauseEchor'></div>
+              </div>
+              <div class='echoStop'></div>
             </div>
-            <div class='echoPause'>
-              <div id='pauseEchol'></div>
-              <div id='pauseEchor'></div>
-            </div>
-            <div class='echoStop'></div>  
+            <span id='duration'></span>
           </div>
-          <span id='duration'></span>
-        </div>
+            <div id='bottom'>
+            </div>
+            </div>
         <div id='rightCont'>
           <marquee id='info'>
             <span id='artist'></span>:
+            <span id='album'></span> -
             <span id='title'></span>
           </marquee>
           <div id='volCtl'>
-            <input id='volume' type='range' step='0.5' min='0' max='10' value='10' onChange='volChange()'/>
+            <input id='volume' type='range' step='0.5' min='0' max='10' value='10' onChange='volChange()' />
             <button id='mute'>mute</button>
-            <button id='unmute'>mute</button>  
+            <button id='unmute'>mute</button>
           </div>
         </div>
       </div>
       <div id='scrub'>
         <div id='progressBar'>
-        <span id='progress'></span>
+          <span id='progress'></span>
         </div>
       </div>
       <div class='controls'>
         <button id='prevBtn'>
           <div id='prevl'></div>
           <div id='prevr'></div>
-        </button> 
-        <button id='playBtn'><div id='playIcon'></div></button>
+        </button>
+        <button id='playBtn'>
+          <div id='playIcon'></div>
+        </button>
         <button id='pauseBtn'>
           <div id='pauseIconl'></div>
           <div id='pauseIconr'></div>
         </button>
-        <button id='stopBtn'><div id='stopIcon'></div></button>
+        <button id='stopBtn'>
+          <div id='stopIcon'></div>
+        </button>
         <button id='nextBtn'>
           <div id='nextl'></div>
           <div id='nextr'></div>
         </button>
         <button class='shuffleOption' id='shuffle'>Shuffle</button>
         <button class='shuffleOption' id='unshuffle'>Shuffle</button>
-        <button class='repeatSelection'id='repeat'>Repeat</button>
+        <button class='repeatSelection' id='repeat'>Repeat</button>
         <button class='repeatSelection' id='norepeat'>Repeat</button>
         <button id='minimize'>Min</button>
         <button id='maximize'>Max</button>
       </div>
     </header>
     <ul id='playlist'>
-      <li song='your file name in media folder' artist='the artist'>The title of the song</li>
       <li class='placeholder'></li>
+      <!-- <li album='' song='name of the song file in the media folder' artist=''>Song name</li> -->
     </ul>
   </div>
   <script src='js/jquery.js'></script>

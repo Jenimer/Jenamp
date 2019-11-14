@@ -1,21 +1,33 @@
+//scrub through duration
+//build spectrum analyzer
+//figure out a server solution, putting files in by hand is a pain and not very dynamic
+//maybe put the files into an array then map through it
+//maybe one day draw some custom buttons so this doesn't look so flat
+
 let audio;
-
-$('#pauseBtn').hide();
-$('#unmute').hide();
-$('#maximize').hide();
-$('.placeholder').css('display', 'none');
-$('#norepeat').hide();
-$('#unshuffle').hide();
-$('.echoPlay').hide();
-$('.echoStop').hide();
-$('.echoPause').hide();
-
 let list = $('#playlist li:first-child');
+let hidden = [
+  $('#pauseBtn'),
+  $('#unmute'),
+  $('#maximize'),
+  $('#norepeat'),
+  $('#unshuffle'),
+  $('.echoPlay'),
+  $('.echoStop'),
+  $('.echoPause'),
+]
+
+hidden.map(i => {
+  i.hide();
+});
+
+$('.placeholder').css('display', 'none');
 
 initAudio = (element) => {
   let song = element.attr('song');
   let artist = element.attr('artist');
   let title = element.text()
+  let album = element.attr('album')
 
   audio = new Audio('./media/' + song);
 
@@ -25,6 +37,7 @@ initAudio = (element) => {
 
   $('#artist').text(artist);
   $('#title').text(title);
+  $('#album').text(album);
 
   $('#playlist li').removeClass('active');
   element.addClass('active');
@@ -33,8 +46,14 @@ initAudio = (element) => {
   if (audio.volume == 0) {
     unmuteBtnShow();
   }
+  
   $(audio).on('ended', () => {
-    nextItem();
+    if($('#unshuffle').is(':visible')){
+      shuffle();
+    } else {
+      nextItem();
+    }
+    
   });
 }
 
@@ -52,7 +71,6 @@ $('#pauseBtn').click(() => {
   audio.pause();
   pauseEcho();
   playBtnShow();
-  clearPlayEcho();
   pauseEcho();
 });
 
@@ -70,6 +88,7 @@ $('#prevBtn').click(() => {
 
 $('#nextBtn').click(() => {
   nextItem();
+  
 });
 
 $('#progressBar').click(() => {
@@ -83,7 +102,6 @@ $('#minimize').click(() => {
 
 $('#maximize').click(() => {
   toggleMax();
-
 })
 
 toggleMax = () => {
@@ -133,12 +151,19 @@ nextItem = () => {
   if (next.length == 0) {
     next = $('#playlist li:first-child');
   }
-  playEcho();
-  pauseBtnShow();
-  muteBtnShow();
-  initAudio(next);
-  audio.play();
-  showDuration();
+  
+  if ($('#unshuffle').is(':visible')){
+    shuffle()
+  } else {
+
+    playEcho();
+    pauseBtnShow();
+    muteBtnShow();
+    initAudio(next);
+    audio.play();
+    showDuration();
+  }
+ 
 }
 
 volChange = () => {
@@ -238,6 +263,7 @@ $('#repeat').click(() => {
 $('#shuffle').click(() => {
   $('#unshuffle').show();
   $('#shuffle').hide();
+  shuffle();
 })
 
 $('#unshuffle').click(() => {
@@ -268,3 +294,15 @@ stopEcho = () => {
   $('.echoStop').show();
   $('.echoPause').hide();
 }
+
+shuffle = () => {
+  audio.pause();
+  let r = parseInt(Math.random() * $('li').length);
+  let randomized = $('li')[r];
+  let randomList = $(randomized)
+  initAudio(randomList);
+  audio.play();
+  playEcho();
+  showDuration()
+}
+
